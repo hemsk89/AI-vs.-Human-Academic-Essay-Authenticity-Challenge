@@ -1,0 +1,130 @@
+## Essay Authenticity Checker Guide
+
+### Overview
+This project is an Essay Authenticity Checker that allows users to upload images of handwritten essays, extract the text from those images, and classify the text as AI-generated or human-written. It leverages AWS Textract for text extraction and OpenAI GPT-3 (or GPT-4) for classifying the text.
+
+### Step 1: Set Up AWS Account and Services
+To enable the application to extract text from images and store files, you'll need to set up some services on AWS:
+
+#### 1. Create an AWS Account:
+- If you don’t have an AWS account, sign up at AWS Console (https://aws.amazon.com/).
+
+#### 2. Create an S3 Bucket for Image Storage:
+- Go to the S3 service in the AWS Console and create a new bucket.
+  - Name it (e.g., essayauth) and choose a region that suits your location.
+  - This S3 bucket will store the images uploaded by users.
+
+#### 3. Set Up AWS Textract:
+- Go to the Textract service in the AWS Console and enable it.
+  - AWS Textract will be used to process and extract text from the uploaded images.
+
+#### 4. Create an IAM User and Set Permissions:
+- Go to IAM (Identity and Access Management) in the AWS Console.
+- Create a new user with Programmatic access.
+- Attach the AmazonS3FullAccess and AmazonTextractFullAccess policies to the user.
+- Note down the Access Key ID and Secret Access Key, as these will be used in the backend.
+
+#### 5. Configure AWS CLI (Optional but recommended):
+- Install AWS CLI to configure the AWS environment on your local machine or server.
+- Use the aws configure command to enter your IAM user’s Access Key ID and Secret Access Key.
+
+### Step 2: Set Up Backend (Flask + AWS + OpenAI)
+
+#### 1. Set Up a Python Virtual Environment:
+Create a folder for the backend project.
+```bash
+mkdir essay-authenticity-checker-backend
+cd essay-authenticity-checker-backend
+Set up a Python virtual environment:
+
+python -m venv venv
+source venv/bin/activate  # For Windows: venv\Scripts\activate
+2. Install Required Python Packages:
+Install Flask, Boto3 (AWS SDK for Python), OpenAI SDK, and other dependencies:
+
+pip install Flask boto3 openai werkzeug flask-cors
+3. Create the Flask Application (app.py):
+In your backend folder, create the app.py file with the following code to handle the image upload, S3 storage, text extraction via AWS Textract, and AI detection using OpenAI GPT.
+
+4. Configure AWS Credentials:
+Create a .env file in the backend folder for sensitive information:
+
+OPENAI_API_KEY=your-openai-api-key
+AWS_ACCESS_KEY_ID=your-aws-access-key-id
+AWS_SECRET_ACCESS_KEY=your-aws-secret-access-key
+You can load these environment variables in your Python app using:
+
+from dotenv import load_dotenv
+load_dotenv()
+Make sure to install python-dotenv:
+
+pip install python-dotenv
+Step 3: Set Up Frontend (React)
+1. Create React App:
+Create the frontend folder and set up React:
+
+npx create-react-app essay-authenticity-checker-frontend
+cd frontend
+2. Install Dependencies:
+Install Axios for making HTTP requests and Font Awesome for icons:
+
+npm install axios font-awesome
+3. Folder Structure:
+Create the following folder structure inside src:
+
+/src
+  /assets
+    /images
+  /components
+    UploadEssay.js
+  /styles
+    App.css
+    UploadEssay.css
+  App.js
+4. Create React Components:
+UploadEssay.js: A React component to allow users to upload images. It sends the uploaded image to the Flask backend and displays the extracted text and the classification result (AI or human).
+App.js: The main entry point for the app, which renders the UploadEssay component.
+5. Style the Frontend:
+Use CSS to style the components and make the UI visually appealing.
+
+App.css: Global styles for the app.
+UploadEssay.css: Component-specific styles for the file upload interface.
+Step 4: Running the Application
+1. Run the Flask Backend:
+In the backend project directory, activate the Python virtual environment and run the Flask app:
+
+python app.py
+This will start the backend on http://127.0.0.1:5000.
+
+2. Run the React Frontend:
+In the React project directory, run the frontend:
+
+npm start
+This will start the React development server on http://localhost:3000.
+
+3. Testing:
+Open the frontend in your browser (http://localhost:3000).
+Upload an image containing text and check the result.
+The extracted text will be displayed along with the prediction (AI-generated or human-written).
+Step 5: Deployment
+After you’ve tested the application locally, you can deploy the backend and frontend to production.
+
+a. Deploy Flask Backend:
+You can deploy the Flask app using Heroku, AWS EC2, or Google Cloud.
+b. Deploy React Frontend:
+Deploy the React app using Vercel or Netlify.
+Step 6: Further Improvements
+1. Security:
+Implement authentication to allow only authorized users to upload images.
+Secure the backend API endpoints with JWT tokens or OAuth.
+2. Enhancements:
+Fine-tune the AI detection model with more specific training data (e.g., human vs. AI essay datasets).
+Improve the UX/UI by adding loading spinners, better progress bars, and responsive design for mobile users.
+Conclusion
+This guide covers the following:
+
+AWS Setup: Including S3, Textract, and IAM user creation.
+Backend Setup: A Flask app to handle image uploads, text extraction, and AI detection.
+Frontend Setup: A React app for uploading images and displaying results.
+Running and Testing: How to run both backend and frontend locally.
+Deployment: Guidance on how to deploy the backend and frontend to production.
