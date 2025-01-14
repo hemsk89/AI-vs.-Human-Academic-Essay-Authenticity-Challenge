@@ -20,33 +20,6 @@ This project focuses on developing a system to distinguish between machine-gener
 - **Version Control**: Git, GitHub/GitLab
 - **Cloud Services**: AWS S3 (for file storage), AWS Textract (for text extraction)
 
-## **Installation**
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/ai-vs-human-authenticity.git
-
-# Navigate to the project folder
-cd ai-vs-human-authenticity
-
-# Install necessary Python dependencies for the backend
-pip install -r requirements.txt
-
-# Set up the React frontend
-cd frontend
-npm install
-
-# Configure AWS credentials and set up AWS Textract and S3 buckets
-
-# Run the backend Flask API
-python app.py
-
-# Start the React frontend
-npm start
-
-# Open the web application in your browser
-# http://localhost:3000
-
 ## **Project Features**
 
 - **Essay Upload**: Users can upload academic essays in image or text format.
